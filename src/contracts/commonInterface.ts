@@ -1,3 +1,5 @@
+import { ValidationError } from "express-validator";
+
 export interface ResponseCodeObject {
     code: number,
     message: string,
@@ -5,5 +7,6 @@ export interface ResponseCodeObject {
 
 export interface ApiResponse extends ResponseCodeObject {
     OK: boolean,
-    data?: any
+    data?: any,
+    errors?: ValidationError[]
 }

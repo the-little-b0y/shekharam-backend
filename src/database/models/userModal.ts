@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
+import { Schema, model } from 'mongoose';
+import { UserInterface,  } from '../../contracts/userInterface';
 
-const UserSchema = new Schema({
+const UserSchema = new Schema<UserInterface>({
     mobileNumber: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     status: {type: Number, default: 1},
@@ -10,4 +10,4 @@ const UserSchema = new Schema({
     updation: { type: Date, default: Date.now }
 });
 
-export const User = mongoose.model('user', UserSchema);
+export const User = model<UserInterface>('user', UserSchema);
