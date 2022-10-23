@@ -16,7 +16,7 @@ export const postUser = (req: Request, res: Response) => {
         if(err) {
             res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(getResponseCodeObject(ResponseCodes.UserCreationFailed, false));
         } else if(exists) {
-            res.status(StatusCodes.UNPROCESSABLE_ENTITY).json(getResponseCodeObject(ResponseCodes.ExistingRegisteredMobileNumber, true));
+            res.status(StatusCodes.UNPROCESSABLE_ENTITY).json(getResponseCodeObject(ResponseCodes.ExistingRegisteredMobileNumber, false));
         } else {
             const hash = await encrypt(req.body.password);
         
