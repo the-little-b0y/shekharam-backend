@@ -12,7 +12,7 @@ import { getResponseCodeObject, ResponseCodes } from "../constants/commonConstan
 export const validateRequest = (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        res.status(StatusCodes.BAD_REQUEST).json(getResponseCodeObject(ResponseCodes.RequestValidationFailed, false, undefined, errors.array()));
+        res.status(StatusCodes.BAD_REQUEST).json(getResponseCodeObject(req, ResponseCodes.RequestValidationFailed, false, undefined, errors.array()));
     } else {
         next()
     }

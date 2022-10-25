@@ -3,6 +3,7 @@ import cors from 'cors';
 import { setEnvs } from '../env/index';
 import { establishConnection } from './database/index';
 import { router } from './route/index';
+import './utils/jwtPassport';
 
 setEnvs();
 establishConnection();
@@ -12,7 +13,7 @@ app.use(express.json());
 
 app.use(cors({ 
     origin: true,
-    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'x-auth-token'],
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'x-auth-token', 'Authorization'],
     methods: ['GET', 'HEAD', 'POST', 'PUT', 'DELETE']
 }))
 
