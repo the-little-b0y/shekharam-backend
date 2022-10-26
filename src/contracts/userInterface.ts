@@ -4,6 +4,8 @@ export interface UserInterface {
     firstName: string,
     lastName: string,
     dateOfBirth?: Date,
+    avatar?: string,
+    greeting?: string,
     status: number,
     actionCount: number,
     creation: Date,

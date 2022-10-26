@@ -29,7 +29,6 @@ export const passportAuthenticate = (req: Request, res: Response) => {
                 } else {
                     const jwtData = {
                         _id: data._id,
-                        password: data.password,
                         mobileNumber: data.mobileNumber,
                         status: data.status
                     }
@@ -62,7 +61,6 @@ export const isauthorized = (req: Request, res: Response, next: NextFunction) =>
         if(user) {
             const passportuser = {
                 _id: user._id,
-                password: user.password,
                 mobileNumber: user.mobileNumber,
                 status: user.status,
                 iat: user.iat,

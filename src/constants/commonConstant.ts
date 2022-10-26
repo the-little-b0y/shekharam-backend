@@ -17,7 +17,10 @@ export const ResponseCodes = {
     UserFetchFailed: 1009,
     UserFetchSuccess: 1010,
     UserUpdateFailed: 1011,
-    UserUpdateSuccess: 1012
+    UserUpdateSuccess: 1012,
+    PasswordResetSuccess: 1013,
+    PasswordResetFailed: 1014,
+    IncorrectCurrentPassword: 1015
 }
 
 /** Server generated response code and their message */
@@ -60,6 +63,15 @@ const responseCodeObjects: ResponseCodeObject[] = [{
 }, {
     code: ResponseCodes.UserUpdateSuccess,
     message: 'User Updated Successfully'
+}, {
+    code: ResponseCodes.PasswordResetSuccess,
+    message: 'Password Reset Successfully'
+}, {
+    code: ResponseCodes.PasswordResetFailed,
+    message: 'Password Reset Failed'
+}, {
+    code: ResponseCodes.IncorrectCurrentPassword,
+    message: 'Incorrect Current Password'
 }]
 
 /** Fallback response code */

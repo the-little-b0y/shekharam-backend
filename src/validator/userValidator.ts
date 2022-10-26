@@ -23,3 +23,20 @@ export const putUserValidator: ValidationChain[] = [
     body('lastName', 'Last Name is not valid').matches(personNameRegex),
     body('dateOfBirth', 'Date Of Birth is not present').exists()
 ]
+
+export const putAvatarValidator: ValidationChain[] = [
+    body('avatar', 'Avatar is not present').exists(),
+    body('greeting', 'Greeting is not present').exists()
+]
+
+export const putPasswordResetValidator: ValidationChain[] = [
+    body('currentpassword', 'Current Password is not present').exists(),
+    body('newpassword', 'New Password is not present').exists(),
+    body('newpassword', 'New Password is not strong enough. Password should contain minimum 8 characters, with atleast a lowercase, an uppercase, a number and a symbol').isStrongPassword({
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1
+    })
+]
