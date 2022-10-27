@@ -20,7 +20,17 @@ export const ResponseCodes = {
     UserUpdateSuccess: 1012,
     PasswordResetSuccess: 1013,
     PasswordResetFailed: 1014,
-    IncorrectCurrentPassword: 1015
+    IncorrectCurrentPassword: 1015,
+    CollectionItemTypeCreationSuccess: 1016,
+    CollectionItemTypeCreationFailed: 1017,
+    CollectionItemTypeUpdationSuccess: 1018,
+    CollectionItemTypeUpdationFailed: 1019,
+    ConfigurationFetchSuccess: 1020,
+    ConfigurationFetchFailed: 1021,
+    DuplicateCollectionItemType: 1022,
+    ConfigurationNotFound: 1023,
+    CollectionItemTypeDeletionSuccess: 1024,
+    CollectionItemTypeDeletionFailed: 1025,
 }
 
 /** Server generated response code and their message */
@@ -72,6 +82,36 @@ const responseCodeObjects: ResponseCodeObject[] = [{
 }, {
     code: ResponseCodes.IncorrectCurrentPassword,
     message: 'Incorrect Current Password'
+}, {
+    code: ResponseCodes.CollectionItemTypeCreationSuccess,
+    message: 'Collection Item Type Created Successfully'
+}, {
+    code: ResponseCodes.CollectionItemTypeCreationFailed,
+    message: 'Collection Item Type Creation Failed'
+}, {
+    code: ResponseCodes.CollectionItemTypeUpdationSuccess,
+    message: 'Collection Item Type Updated Successfully'
+}, {
+    code: ResponseCodes.CollectionItemTypeUpdationFailed,
+    message: 'Collection Item Type Updation Failed'
+}, {
+    code: ResponseCodes.ConfigurationFetchSuccess,
+    message: 'Configuration Fetched Successfully'
+}, {
+    code: ResponseCodes.ConfigurationFetchFailed,
+    message: 'Configuration Fetch Failed'
+}, {
+    code: ResponseCodes.DuplicateCollectionItemType,
+    message: 'Collection Item Type already added'
+}, {
+    code: ResponseCodes.ConfigurationNotFound,
+    message: 'Configuration Not Found'
+}, {
+    code: ResponseCodes.CollectionItemTypeDeletionSuccess,
+    message: 'Collection Item Type Deleted Successfully'
+}, {
+    code: ResponseCodes.CollectionItemTypeDeletionFailed,
+    message: 'Collection Item Type Deletion Failed'
 }]
 
 /** Fallback response code */

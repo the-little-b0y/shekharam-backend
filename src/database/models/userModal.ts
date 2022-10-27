@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { UserInterface,  } from '../../contracts/userInterface';
+import { UserInterface } from '../../contracts/userInterface';
 
 const UserSchema = new Schema<UserInterface>({
     mobileNumber: { type: String, required: true, unique: true },

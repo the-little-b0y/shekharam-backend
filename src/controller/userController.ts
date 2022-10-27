@@ -48,7 +48,7 @@ export const postUser = (req: Request, res: Response) => {
  * @param {express.Request} req - Express request object.
  * @param {express.Response} res - Express response object.
  */
- export const getUser = (req: Request, res: Response) => {
+export const getUser = (req: Request, res: Response) => {
     //@ts-ignore
     const userid = Types.ObjectId(req.user._id)
     User.aggregate([
@@ -68,7 +68,7 @@ export const postUser = (req: Request, res: Response) => {
  * @param {express.Request} req - Express request object.
  * @param {express.Response} res - Express response object.
  */
- export const putUser = (req: Request, res: Response) => {
+export const putUser = (req: Request, res: Response) => {
     //@ts-ignore
     const userid = req.user._id
     const data = {
@@ -98,7 +98,7 @@ export const postUser = (req: Request, res: Response) => {
  * @param {express.Request} req - Express request object.
  * @param {express.Response} res - Express response object.
  */
- export const putAvatar = (req: Request, res: Response) => {
+export const putAvatar = (req: Request, res: Response) => {
     //@ts-ignore
     const userid = req.user._id
     const data = {
@@ -127,7 +127,7 @@ export const postUser = (req: Request, res: Response) => {
  * @param {express.Request} req - Express request object.
  * @param {express.Response} res - Express response object.
  */
- export const putPasswordReset = (req: Request, res: Response) => {
+export const putPasswordReset = (req: Request, res: Response) => {
     //@ts-ignore
     const userid = Types.ObjectId(req.user._id)
 
