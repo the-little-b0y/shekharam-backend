@@ -51,6 +51,39 @@ export const passportAuthenticate = (req: Request, res: Response) => {
 }
 
 /**
+ * Refresh Access Token.
+ * @param {express.Request} req - Express request object.
+ * @param {express.Response} res - Express response object.
+ */
+export const jwtRefreshtoken = (req: Request, res: Response) => {
+    jwt.verify(req.body.refreshtoken, refreshsecret, (err: any, data: any) => {
+        if(err){
+            const error: ValidationError = {
+                location: 'body',
+                param: '',
+                value: 'JwtError',
+                msg: 'JwtError',
+            }
+            res.status(StatusCodes.UNAUTHORIZED).json(getResponseCodeObject(req, ResponseCodes.AuthorizationFailed, false, undefined, [error]));
+        } else{
+            const jwtData = {
+                _id: data._id,
+                mobileNumber: data.mobileNumber,
+                status: data.status
+            }
+            const accessToken = jwt.sign(jwtData, jwtsecret, { expiresIn: jwtsecretExp });
+            const returnData = {
+                userid: data._id,
+                mobileNumber: data.mobileNumber,
+                tokenType: 'Bearer',
+                accessToken: accessToken
+            }
+            res.status(StatusCodes.OK).json(getResponseCodeObject(req, ResponseCodes.AuthenticationSuccess, true, returnData));
+        }
+    })
+}
+
+/**
  * Check if user is authorised.
  * @param {express.Request} req - Express request object.
  * @param {express.Response} res - Express response object.

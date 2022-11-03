@@ -1,8 +1,9 @@
 import { Router } from 'express';
-import { passportAuthenticate } from '../controller/authController';
+import { jwtRefreshtoken, passportAuthenticate } from '../controller/authController';
 import { validateRequest } from '../utils/requestValidator';
-import { loginValidator } from '../validator/authValidator';
+import { loginValidator, refreshTokenValidator } from '../validator/authValidator';
 
 export const router = Router();
 
 router.post('/', loginValidator, validateRequest, passportAuthenticate);
+router.post('/refreshtoken', refreshTokenValidator, validateRequest, jwtRefreshtoken);
