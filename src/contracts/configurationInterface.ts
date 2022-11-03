@@ -5,9 +5,14 @@ export interface CollectionItemType {
     itemimage: string
 }
 
+export interface ConditionType {
+    conditiontype: string
+}
+
 export interface ConfigurationInterface {
     userid: mongoose.ObjectId,
     collectionItemTypes: CollectionItemType[],
+    conditionTypes: ConditionType[],
     status: number,
     actionCount: number,
     creation: Date,

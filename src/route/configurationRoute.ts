@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { isauthorized } from '../controller/authController';
-import { deleteCollectionItemType, getConfiguration, postCollectionItemType, putCollectionItemType } from '../controller/configurationController';
+import { deleteCollectionItemType, deleteConditionType, getConfiguration, postCollectionItemType, postConditionType, putCollectionItemType, putConditionType } from '../controller/configurationController';
 import { validateRequest } from '../utils/requestValidator';
-import { deleteCollectionItemTypeValidator, postCollectionItemTypeValidator, putCollectionItemTypeValidator } from '../validator/configurationValidator';
+import { deleteCollectionItemTypeValidator, deleteConditionTypeValidator, postCollectionItemTypeValidator, postConditionTypeValidator, putCollectionItemTypeValidator, putConditionTypeValidator } from '../validator/configurationValidator';
 
 export const router = Router();
 
@@ -10,3 +10,6 @@ router.get('/', isauthorized, getConfiguration);
 router.post('/collectionitemtype', isauthorized, postCollectionItemTypeValidator, validateRequest, postCollectionItemType);
 router.put('/collectionitemtype', isauthorized, putCollectionItemTypeValidator, validateRequest, putCollectionItemType);
 router.delete('/collectionitemtype', isauthorized, deleteCollectionItemTypeValidator, validateRequest, deleteCollectionItemType);
+router.post('/conditiontype', isauthorized, postConditionTypeValidator, validateRequest, postConditionType);
+router.put('/conditiontype', isauthorized, putConditionTypeValidator, validateRequest, putConditionType);
+router.delete('/conditiontype', isauthorized, deleteConditionTypeValidator, validateRequest, deleteConditionType);

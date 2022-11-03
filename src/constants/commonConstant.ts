@@ -31,6 +31,14 @@ export const ResponseCodes = {
     ConfigurationNotFound: 1023,
     CollectionItemTypeDeletionSuccess: 1024,
     CollectionItemTypeDeletionFailed: 1025,
+    ConditionTypeCreationSuccess: 1026,
+    ConditionTypeCreationFailed: 1027,
+    ConditionTypeUpdationSuccess: 1028,
+    ConditionTypeUpdationFailed: 1029,
+    DuplicateConditionType: 1030,
+    ConditionTypeDeletionSuccess: 1031,
+    ConditionTypeDeletionFailed: 1032,
+    SimilarCollectionItemType: 1022,
 }
 
 /** Server generated response code and their message */
@@ -112,6 +120,30 @@ const responseCodeObjects: ResponseCodeObject[] = [{
 }, {
     code: ResponseCodes.CollectionItemTypeDeletionFailed,
     message: 'Collection Item Type Deletion Failed'
+}, {
+    code: ResponseCodes.ConditionTypeCreationSuccess,
+    message: 'Condition Type Created Successfully'
+}, {
+    code: ResponseCodes.ConditionTypeCreationFailed,
+    message: 'Condition Type Creation Failed'
+}, {
+    code: ResponseCodes.ConditionTypeUpdationSuccess,
+    message: 'Condition Type Updated Successfully'
+}, {
+    code: ResponseCodes.ConditionTypeUpdationFailed,
+    message: 'Condition Type Updation Failed'
+}, {
+    code: ResponseCodes.DuplicateConditionType,
+    message: 'Condition Type already added'
+}, {
+    code: ResponseCodes.ConditionTypeDeletionSuccess,
+    message: 'Condition Type Deleted Successfully'
+}, {
+    code: ResponseCodes.ConditionTypeDeletionFailed,
+    message: 'Condition Type Deletion Failed'
+}, {
+    code: ResponseCodes.SimilarCollectionItemType,
+    message: 'Similar Collection Item Type already added'
 }]
 
 /** Fallback response code */

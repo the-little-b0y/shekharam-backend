@@ -14,3 +14,16 @@ export const putCollectionItemTypeValidator: ValidationChain[] = [
 export const deleteCollectionItemTypeValidator: ValidationChain[] = [
     query('_id', '_id not present').exists()
 ]
+
+export const postConditionTypeValidator: ValidationChain[] = [
+    body('conditiontype', 'Condition type not present').exists()
+]
+
+export const putConditionTypeValidator: ValidationChain[] = [
+    body('_id', '_id not present').exists(),
+    body('conditiontype', 'Condition type not present').exists()
+]
+
+export const deleteConditionTypeValidator: ValidationChain[] = [
+    query('_id', '_id not present').exists()
+]
