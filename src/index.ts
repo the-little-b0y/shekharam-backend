@@ -5,7 +5,10 @@ import { establishConnection } from './database/index';
 import { router } from './route/index';
 import './utils/jwtPassport';
 
-setEnvs();
+if(process.env.NODE_ENV === 'development') {
+    setEnvs();
+}
+
 establishConnection();
 
 const app: Application = express();
@@ -19,6 +22,8 @@ app.use(cors({
 
 app.use('/v1', router);
 
-app.listen(Number(process.env.PORT), () => {
-    console.info('Server started on port: ' + Number(process.env.PORT));
+const port = process.env.PORT || 7000;
+
+app.listen(Number(port), () => {
+    console.info('Server started on port: ' + Number(port));
 });
