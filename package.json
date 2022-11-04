@@ -4,12 +4,10 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "dev": "NODE_ENV=development node src/index.ts",
-    "dev-win": "SET NODE_ENV=development&&node src/index.ts",
     "dev-nodemon": "NODE_ENV=development nodemon src/index.ts",
     "dev-nodemon-win": "SET NODE_ENV=development&&nodemon src/index.ts",
-    "build": "tsc",
-    "start": "node build"
+    "start": "tsc && NODE_ENV=development node build/src/index.js",
+    "start-win": "tsc&&SET NODE_ENV=development&&node build/src/index.js"
   },
   "keywords": [],
   "author": "",
