@@ -24,8 +24,8 @@ export const putUserValidator: ValidationChain[] = [
     body('dateOfBirth', 'Date Of Birth is not present').exists()
 ]
 
-export const putAvatarValidator: ValidationChain[] = [
-    body('avatar', 'Avatar is not present').exists(),
+export const putVaValidator: ValidationChain[] = [
+    body('va', 'Virtual Associate is not present').exists(),
     body('greeting', 'Greeting is not present').exists()
 ]
 
