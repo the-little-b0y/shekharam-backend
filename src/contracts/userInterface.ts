@@ -4,7 +4,7 @@ export interface UserInterface {
     firstName: string,
     lastName: string,
     dateOfBirth?: Date,
-    avatar?: string,
+    va?: string,
     greeting?: string,
     status: number,
     actionCount: number,

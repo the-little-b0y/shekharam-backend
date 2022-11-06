@@ -94,15 +94,15 @@ export const putUser = (req: Request, res: Response) => {
 }
 
 /**
- * Update user avatar and greeting.
+ * Update user virtual associate and greeting.
  * @param {express.Request} req - Express request object.
  * @param {express.Response} res - Express response object.
  */
-export const putAvatar = (req: Request, res: Response) => {
+export const putVa = (req: Request, res: Response) => {
     //@ts-ignore
     const userid = req.user._id
     const data = {
-        avatar: req.body.avatar,
+        va: req.body.va,
         greeting: req.body.greeting
     }
     
