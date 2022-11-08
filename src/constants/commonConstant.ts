@@ -38,7 +38,20 @@ export const ResponseCodes = {
     DuplicateConditionType: 1030,
     ConditionTypeDeletionSuccess: 1031,
     ConditionTypeDeletionFailed: 1032,
-    SimilarCollectionItemType: 1022,
+    SimilarCollectionItemType: 1033,
+    CurrencyUpdationSuccess: 1034,
+    CurrencyUpdationFailed: 1035,
+    CollectionCreationSuccess: 1036,
+    CollectionCreationFailed: 1037,
+    CollectionUpdationSuccess: 1038,
+    CollectionUpdationFailed: 1039,
+    CollectionDeletionSuccess: 1040,
+    CollectionDeletionFailed: 1041,
+    DuplicateCollection: 1042,
+    QrCodeExistInCollection: 1043,
+    CollectionFetchSuccess: 1044,
+    CollectionFetchFailed: 1045,
+    ConditionTypeExistInCollection: 1046
 }
 
 /** Server generated response code and their message */
@@ -92,16 +105,16 @@ const responseCodeObjects: ResponseCodeObject[] = [{
     message: 'Incorrect Current Password'
 }, {
     code: ResponseCodes.CollectionItemTypeCreationSuccess,
-    message: 'Collection Item Type Created Successfully'
+    message: 'Collection Created Successfully'
 }, {
     code: ResponseCodes.CollectionItemTypeCreationFailed,
-    message: 'Collection Item Type Creation Failed'
+    message: 'Collection Creation Failed'
 }, {
     code: ResponseCodes.CollectionItemTypeUpdationSuccess,
-    message: 'Collection Item Type Updated Successfully'
+    message: 'Collection Updated Successfully'
 }, {
     code: ResponseCodes.CollectionItemTypeUpdationFailed,
-    message: 'Collection Item Type Updation Failed'
+    message: 'Collection Updation Failed'
 }, {
     code: ResponseCodes.ConfigurationFetchSuccess,
     message: 'Configuration Fetched Successfully'
@@ -110,16 +123,16 @@ const responseCodeObjects: ResponseCodeObject[] = [{
     message: 'Configuration Fetch Failed'
 }, {
     code: ResponseCodes.DuplicateCollectionItemType,
-    message: 'Collection Item Type already added'
+    message: 'Collection already added'
 }, {
     code: ResponseCodes.ConfigurationNotFound,
     message: 'Configuration Not Found'
 }, {
     code: ResponseCodes.CollectionItemTypeDeletionSuccess,
-    message: 'Collection Item Type Deleted Successfully'
+    message: 'Collection Deleted Successfully'
 }, {
     code: ResponseCodes.CollectionItemTypeDeletionFailed,
-    message: 'Collection Item Type Deletion Failed'
+    message: 'Collection Deletion Failed'
 }, {
     code: ResponseCodes.ConditionTypeCreationSuccess,
     message: 'Condition Type Created Successfully'
@@ -143,7 +156,46 @@ const responseCodeObjects: ResponseCodeObject[] = [{
     message: 'Condition Type Deletion Failed'
 }, {
     code: ResponseCodes.SimilarCollectionItemType,
-    message: 'Similar Collection Item Type already added'
+    message: 'Similar Collection already added'
+},  {
+    code: ResponseCodes.CurrencyUpdationSuccess,
+    message: 'Currency Updated Successfully'
+}, {
+    code: ResponseCodes.CurrencyUpdationFailed,
+    message: 'Currency Updation Failed'
+}, {
+    code: ResponseCodes.CollectionCreationSuccess,
+    message: 'Item Collection Created Successfully'
+}, {
+    code: ResponseCodes.CollectionCreationFailed,
+    message: 'Item Collection Creation Failed'
+}, {
+    code: ResponseCodes.CollectionUpdationSuccess,
+    message: 'Item Collection Updated Successfully'
+}, {
+    code: ResponseCodes.CollectionUpdationFailed,
+    message: 'Item Collection Updation Failed'
+}, {
+    code: ResponseCodes.CollectionDeletionSuccess,
+    message: 'Item Collection Deleted Successfully'
+}, {
+    code: ResponseCodes.CollectionDeletionFailed,
+    message: 'Item Collection Deletion Failed'
+}, {
+    code: ResponseCodes.DuplicateCollection,
+    message: 'Item Collection with same Item Name, Color, Year of production and Unique Feature already added'
+}, {
+    code: ResponseCodes.QrCodeExistInCollection,
+    message: 'Copy QR Codes and Collection Set QR Code already exist in other Item Collections'
+}, {
+    code: ResponseCodes.CollectionFetchSuccess,
+    message: 'Item Collections Fetched Successfully'
+}, {
+    code: ResponseCodes.CollectionFetchFailed,
+    message: 'Item Collections Fetch Failed'
+}, {
+    code: ResponseCodes.ConditionTypeExistInCollection,
+    message: 'Cannot delete Condition type, since this condition is added for some Collection copies'
 }]
 
 /** Fallback response code */
