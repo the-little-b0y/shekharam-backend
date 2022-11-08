@@ -13,6 +13,7 @@ export interface ConfigurationInterface {
     userid: mongoose.ObjectId,
     collectionItemTypes: CollectionItemType[],
     conditionTypes: ConditionType[],
+    currency?: string,
     status: number,
     actionCount: number,
     creation: Date,

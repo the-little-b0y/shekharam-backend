@@ -4,6 +4,8 @@ import { getResponseCodeObject, ResponseCodes } from "../constants/commonConstan
 import { Types } from "mongoose";
 import { Configuration } from "../database/models/configurationModal";
 import { ConfigurationInterface } from "../contracts/configurationInterface";
+import { checkDataExists } from "../utils/dbValidator";
+import { Collection } from "../database/models/collectionModal";
 
 /**
  * Create a new Collection Item Type.
@@ -273,19 +275,82 @@ export const deleteConditionType = (req: Request, res: Response) => {
     //@ts-ignore
     const userid = Types.ObjectId(req.user._id)
 
-    const updateQuery = {
-        $pull: { conditionTypes: { _id: req.query._id } },
-        $set: {
-            updation: new Date()
-        },
-        $inc: {'actionCount' :1}
-    }
-
-    Configuration.findOneAndUpdate({$and:[{status: 1}, {userid: userid}]}, updateQuery, (err: any, data: any) => {
+    checkDataExists(Collection, { $and: [{'userid': userid}, {status: 1}, {'copies.condition': req.query._id}] }, async (err, exists) => {
         if(err) {
             res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(getResponseCodeObject(req, ResponseCodes.ConditionTypeDeletionFailed, false));
+        } else if(exists) {
+            res.status(StatusCodes.UNPROCESSABLE_ENTITY).json(getResponseCodeObject(req, ResponseCodes.ConditionTypeExistInCollection, false));
         } else {
-            res.status(StatusCodes.OK).json(getResponseCodeObject(req, ResponseCodes.ConditionTypeDeletionSuccess, true));
+            const updateQuery = {
+                $pull: { conditionTypes: { _id: req.query._id } },
+                $set: {
+                    updation: new Date()
+                },
+                $inc: {'actionCount' :1}
+            }
+        
+            Configuration.findOneAndUpdate({$and:[{status: 1}, {userid: userid}]}, updateQuery, (err: any, data: any) => {
+                if(err) {
+                    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(getResponseCodeObject(req, ResponseCodes.ConditionTypeDeletionFailed, false));
+                } else {
+                    res.status(StatusCodes.OK).json(getResponseCodeObject(req, ResponseCodes.ConditionTypeDeletionSuccess, true));
+                }
+            })
+        }
+    })
+
+}
+
+/**
+ * Update Local Currency.
+ * @param {express.Request} req - Express request object.
+ * @param {express.Response} res - Express response object.
+ */
+export const putCurrency = (req: Request, res: Response) => {
+    //@ts-ignore
+    const userid = Types.ObjectId(req.user._id)
+    
+    Configuration.aggregate([
+        { '$match': { 'userid': userid } },
+        { '$sort': { 'creation': -1 } }
+    ], async (err, data) => {
+        if(err) {
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(getResponseCodeObject(req, ResponseCodes.CurrencyUpdationFailed, false));
+        }  else if(data.length !== 0) {  
+            const updateQuery = {
+                $set: {
+                    currency: req.body.currency,
+                    updation: new Date()
+                },
+                $inc: {'actionCount' :1}
+            }
+        
+            Configuration.findOneAndUpdate({$and:[{status: 1}, {userid: userid}]}, updateQuery, (err: any, data: any) => {
+                if(err) {
+                    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(getResponseCodeObject(req, ResponseCodes.CurrencyUpdationFailed, false));
+                } else {
+                    res.status(StatusCodes.OK).json(getResponseCodeObject(req, ResponseCodes.CurrencyUpdationSuccess, true));
+                }
+            })
+        } else {
+            const configuration = new Configuration<ConfigurationInterface>({
+                userid: userid,
+                collectionItemTypes: [],
+                conditionTypes: [],
+                currency: req.body.currency,
+                status: 1,
+                actionCount: 1,
+                creation: new Date(),
+                updation: new Date()
+            });
+        
+            configuration.save((err, data) => {
+                if(err) {
+                    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(getResponseCodeObject(req, ResponseCodes.CurrencyUpdationFailed, false));
+                } else {
+                    res.status(StatusCodes.OK).json(getResponseCodeObject(req, ResponseCodes.CurrencyUpdationSuccess, true));
+                }
+            });
         }
     })
 }

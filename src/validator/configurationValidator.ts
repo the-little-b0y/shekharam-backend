@@ -27,3 +27,7 @@ export const putConditionTypeValidator: ValidationChain[] = [
 export const deleteConditionTypeValidator: ValidationChain[] = [
     query('_id', '_id not present').exists()
 ]
+
+export const putCurrencyValidator: ValidationChain[] = [
+    body('currency', 'Currency is not present').exists()
+]
