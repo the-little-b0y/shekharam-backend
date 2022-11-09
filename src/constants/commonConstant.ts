@@ -51,7 +51,8 @@ export const ResponseCodes = {
     QrCodeExistInCollection: 1043,
     CollectionFetchSuccess: 1044,
     CollectionFetchFailed: 1045,
-    ConditionTypeExistInCollection: 1046
+    ConditionTypeExistInCollection: 1046,
+    RecaptchaValidationFailed: 1047
 }
 
 /** Server generated response code and their message */
@@ -196,6 +197,9 @@ const responseCodeObjects: ResponseCodeObject[] = [{
 }, {
     code: ResponseCodes.ConditionTypeExistInCollection,
     message: 'Cannot delete Condition type, since this condition is added for some Collection copies'
+}, {
+    code: ResponseCodes.RecaptchaValidationFailed,
+    message: 'Google Recaptcha Validation Failed'
 }]
 
 /** Fallback response code */

@@ -6,6 +6,7 @@ import { getResponseCodeObject, ResponseCodes } from "../constants/commonConstan
 import { ValidationError } from "express-validator";
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
+import 'isomorphic-fetch';
 
 const jwtsecret: string = process.env.JWT_SECRET || 'jwtsecret'
 const jwtsecretExp: string = process.env.JWT_SECRET_EXPIRY || '24h'
@@ -123,26 +124,39 @@ export const isauthorized = (req: Request, res: Response, next: NextFunction) =>
 
 /**
  * Perform login.
+ * @param {express.Request} req - Express request object.
  * @param {string} mobileNumber - Mobile number for Request.
  * @param {string} password - Password for Request.
  * @param {function(number, number, boolean, any): void} callback - Callback function.
  */
-export const login = (mobileNumber: string, password: string, callback: (statuscode: number, responsecode: number, OK: boolean, data?: any) => void) => {
-    User.aggregate([
-        { '$match': { 'mobileNumber': mobileNumber } },
-        { '$sort': { 'creation': -1 } }
-    ], async (err, data) => {
-        if(err) {
-            callback(StatusCodes.INTERNAL_SERVER_ERROR, ResponseCodes.AuthenticationFailed, false)
-        } else if(data.length !== 0) {
-            const checkpass = await decrypt(password, data[0].password);
-            if(checkpass) {
-                callback(StatusCodes.OK, ResponseCodes.AuthenticationSuccess, true, data[0])
-            } else {
-                callback(StatusCodes.UNPROCESSABLE_ENTITY, ResponseCodes.PasswordIncorrect, false)
-            }
+export const login = (req: Request, mobileNumber: string, password: string, callback: (statuscode: number, responsecode: number, OK: boolean, data?: any) => void) => {
+    const reCaptchaKey = (process.env && process.env.RECAPTCHA_KEY) ? process.env.RECAPTCHA_KEY : ''
+    const url = `https://www.google.com/recaptcha/api/siteverify?secret=${reCaptchaKey}&response=${req.body['g-recaptcha-response']}`;
+    fetch(url, {
+        method: 'post'
+    }).then(response => response.json()).then(google_response => {
+        if(google_response && google_response.success) {
+            User.aggregate([
+                { '$match': { 'mobileNumber': mobileNumber } },
+                { '$sort': { 'creation': -1 } }
+            ], async (err, data) => {
+                if(err) {
+                    callback(StatusCodes.INTERNAL_SERVER_ERROR, ResponseCodes.AuthenticationFailed, false)
+                } else if(data.length !== 0) {
+                    const checkpass = await decrypt(password, data[0].password);
+                    if(checkpass) {
+                        callback(StatusCodes.OK, ResponseCodes.AuthenticationSuccess, true, data[0])
+                    } else {
+                        callback(StatusCodes.UNPROCESSABLE_ENTITY, ResponseCodes.PasswordIncorrect, false)
+                    }
+                } else {
+                    callback(StatusCodes.UNPROCESSABLE_ENTITY, ResponseCodes.UserNotFound, false)
+                }
+            })
         } else {
-            callback(StatusCodes.UNPROCESSABLE_ENTITY, ResponseCodes.UserNotFound, false)
+            callback(StatusCodes.UNPROCESSABLE_ENTITY, ResponseCodes.RecaptchaValidationFailed, false)
         }
+    }).catch(error => {
+        callback(StatusCodes.UNPROCESSABLE_ENTITY, ResponseCodes.RecaptchaValidationFailed, false)
     })
 }
