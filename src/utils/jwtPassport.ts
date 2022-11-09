@@ -1,3 +1,4 @@
+import { Request } from 'express';
 import passport from 'passport';
 import passportJWT from "passport-jwt";
 import { login } from '../controller/authController';
@@ -10,8 +11,9 @@ const jwtsecret: string = process.env.JWT_SECRET || 'jwtsecret'
 passport.use("strategyU1", new LocalStrategy({
         usernameField: 'mobileNumber',
         passwordField: 'password',
-    }, (mobileNumber: string, password: string, callback: any) => {   
-        login(mobileNumber, password, (statuscode, responsecode, OK, data)=>{
+        passReqToCallback: true
+    }, (req: Request, mobileNumber: string, password: string, callback: any) => {   
+        login(req, mobileNumber, password, (statuscode, responsecode, OK, data)=>{
             const passportReturn = { statuscode, responsecode, OK, data }
             callback(null, passportReturn)
         })
