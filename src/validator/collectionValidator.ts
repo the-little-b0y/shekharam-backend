@@ -50,3 +50,11 @@ export const getCollectionValidator: ValidationChain[] = [
 export const getSingleCollectionValidator: ValidationChain[] = [
     param('id', 'Id not present').exists()
 ]
+
+export const getCollectionIdBySetQRValidator: ValidationChain[] = [
+    query('collectionsetqr', 'Collection set QR not present').exists(),
+]
+
+export const getCollectionIdByCopyQRValidator: ValidationChain[] = [
+    query('copyqr', 'Copy QR not present').exists(),
+]

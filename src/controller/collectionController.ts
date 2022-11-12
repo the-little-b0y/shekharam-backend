@@ -98,6 +98,52 @@ export const getSingleCollection = (req: Request, res: Response) => {
 }
 
 /**
+ * Get Collection Item Id by set qr.
+ * @param {express.Request} req - Express request object.
+ * @param {express.Response} res - Express response object.
+ */
+export const getCollectionIdBySetQR = (req: Request, res: Response) => {
+    //@ts-ignore
+    const userid = Types.ObjectId(req.user._id);
+    Collection.aggregate([
+        { '$match': { $and: [{'userid': userid}, {collectionSetQrcode: req.query.collectionsetqr}, {status: 1}] } },
+        { '$sort': { 'creation': -1 } }
+    ], async (err, data) => {
+        if(err) {
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(getResponseCodeObject(req, ResponseCodes.CollectionFetchFailed, false));
+        } else {
+            const returndata = (data.length > 0) ? {_id: data[0]._id} : {_id: null}
+            res.status(StatusCodes.OK).json(getResponseCodeObject(req, ResponseCodes.CollectionFetchSuccess, true, returndata));
+        }
+    })
+}
+
+/**
+ * Get Collection Item Id by copy qr.
+ * @param {express.Request} req - Express request object.
+ * @param {express.Response} res - Express response object.
+ */
+export const getCollectionIdByCopyQR = (req: Request, res: Response) => {
+    //@ts-ignore
+    const userid = Types.ObjectId(req.user._id);
+    Collection.aggregate([
+        { '$match': { $and: [{'userid': userid}, {'copies.copyqrcode': req.query.copyqr}, {status: 1}] } },
+        { '$sort': { 'creation': -1 } }
+    ], async (err, data) => {
+        if(err) {
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(getResponseCodeObject(req, ResponseCodes.CollectionFetchFailed, false));
+        } else {
+            let returndata = (data.length > 0) ? {_id: data[0]._id} : {_id: null, copyid: null}
+            if(data.length > 0) {
+                const copy = data[0].copies.find((element: CollectionCopyInterface) => element.copyqrcode === req.query.copyqr)
+                returndata = {...returndata, ...{copyid: copy._id}}
+            }
+            res.status(StatusCodes.OK).json(getResponseCodeObject(req, ResponseCodes.CollectionFetchSuccess, true, returndata));
+        }
+    })
+}
+
+/**
  * Delete a Collection Item.
  * @param {express.Request} req - Express request object.
  * @param {express.Response} res - Express response object.
